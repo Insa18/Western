@@ -179,7 +179,7 @@ void Brigand::affNbDammesEnlevees()
 
 void Brigand::sePresente() const 
 {
-	cout << "(" << nom << ") -- " << "Bonjour, je suis " << getNom() << "le " << getComportement() << " et j'aime le " << getBoissonFavorite() << "." << endl;
+	cout << "(" << nom << ") -- " << "Bonjour, je suis " << getNom() << " le " << getComportement() << " et j'aime le " << getBoissonFavorite() << "." << endl;
 }
 
 void Brigand::kidnappe(Dame& dame)
