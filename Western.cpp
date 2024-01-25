@@ -5,10 +5,17 @@ using namespace std;
 int main()
 {
 	Dame jenny("jenny");
-	Cowboy lucky("Lucky Luke");
+	Cowboy lucky("Lucky Luke","Coca-Cola");
+	Brigand joe("Joe");
 	lucky.sePresente();
 	jenny.sePresente();
-	jenny.changeDeRobe("verte");
-	jenny.boit();
-	lucky.boit();
+	joe.sePresente();
+	joe.kidnappe(jenny);
+	lucky.sePresente();
+	joe.sePresente();
+	joe.affNbDammesEnlevees();
+	joe.affPrime();
+	lucky.tire(joe);
+	lucky.emprisonne(joe);
+	lucky.libere(jenny);
 }

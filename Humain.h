@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 using namespace std;
-
+class Brigand;
+class Dame;
+class Cowboy;
 /*#####################class Humain#####################*/
 
 class Humain
@@ -11,7 +13,7 @@ protected:
 	string boissonFavorite;
 public:
 	Humain(const string nom = "", const string boissonFavorite = "eau");
-	string getBoissonFavorite();
+	string getBoissonFavorite() const;
 	void setBoissonFavorite(const string _boissonFavorite);
 	void parle(const string texte);
 	void boit();
@@ -36,7 +38,6 @@ public:
 	void changeDeRobe(const string couleurRobe);
 	void seFaitKidnapper();
 	void seFaitLiberer(Cowboy& cowboy);
-	void changeDeRobe(const string couleurRobe);
 };
 
 /*#####################class Cowboy#####################*/
@@ -44,8 +45,8 @@ public:
 class Cowboy : public Humain
 {
 private:
-	const int popularite = 0;
-	const string qualite;
+	int popularite = 0;
+	string qualite;
 public:
 	Cowboy(const string nom = "", const string boissonFavorite = "whisky", const string qualite = "vaillant", const int popularite = 0);
 	void sePresente() const;
@@ -71,13 +72,17 @@ private:
 	bool enPrison;
 public:
 	Brigand(const string nom = "", const string boissonFavorite = "tord-boyaux", const string comportement = "mechant");
-	string getComportement();
-	int getNbDamesEnlevees();
-	int getRecompense();
-	void sePresente();
+	string getComportement() const;
+	int getNbDamesEnlevees() const;
+	int getRecompense() const;
+	void affPrime();
+	void affNbDammesEnlevees();
+	void sePresente() const;
 	void kidnappe(Dame& dame);
-	void seFaitEmprisonner(const int prix = 100);
+	void seFaitEmprisonner(Cowboy& cowboy);
+	void augmenteRecompense(const int prix = 100);
 	void diminueRecompense(const int prix = 100);
-	bool estEnPrison();
-	void augmenteRecompense();
+	bool estEnPrison() const;
+	
+	string getNom() const;
 };
