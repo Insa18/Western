@@ -13,10 +13,13 @@ protected:
 	string boissonFavorite;
 public:
 	Humain(const string nom = "", const string boissonFavorite = "eau");
+	~Humain();
 	string getBoissonFavorite() const;
 	void setBoissonFavorite(const string _boissonFavorite);
 	void parle(const string texte);
 	void boit();
+	virtual void sePresente();
+	string getNom();
 };
 
 /*#####################class Dame#####################*/
@@ -83,6 +86,34 @@ public:
 	void augmenteRecompense(const int prix = 100);
 	void diminueRecompense(const int prix = 100);
 	bool estEnPrison() const;
-	
 	string getNom() const;
+	int getPrimes();
+};
+
+/*#####################class Barman#####################*/
+
+class Barman : public Humain
+{
+private:
+	string nomBar;
+	string terminePhrase() const;
+public:
+	Barman(const string nom = "", const string boissonFavorite = "biere", const string nomBar = "");
+	string getNomBar();
+	void parle(const string texte);
+	void sePresente() override;
+	void sert(Humain& client);
+};
+
+/*#####################class Sherif#####################*/
+
+class Sherif : public Cowboy
+{
+private:
+	int nbBrigandsCoffres=0;
+public:
+	Sherif(const string nom = "", const string boissonFavorite = "", int nbBrigandsCoffres=0,string qualite = "honnete",int popularite=0);
+	void cofferBrigand(Brigand& brigand);
+	void avisRecherche(Brigand& brigand);
+	void sePresente();
 };

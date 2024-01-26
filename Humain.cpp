@@ -8,6 +8,10 @@ Humain::Humain(const string nom, const string boissonFavorite):nom(nom),boissonF
 
 }
 
+Humain::~Humain()
+{
+}
+
 string Humain::getBoissonFavorite() const
 {
 	return boissonFavorite;
@@ -27,6 +31,17 @@ void Humain::boit()
 {
 	cout << "(" << nom << ") -- " << "Ah un bon verre de " << boissonFavorite << " ! GLOUPS !" << endl;
 }
+
+void Humain::sePresente()
+{
+	cout << "(" << nom << ") -- " << "Bonjour, je suis " << nom << " et j'aime le " << boissonFavorite << endl;
+}
+
+string Humain::getNom()
+{
+	return nom;
+}
+
 
 /*#####################class Dame#####################*/
 
@@ -179,7 +194,7 @@ void Brigand::affNbDammesEnlevees()
 
 void Brigand::sePresente() const 
 {
-	cout << "(" << nom << ") -- " << "Bonjour, je suis " << getNom() << "le " << getComportement() << " et j'aime le " << getBoissonFavorite() << "." << endl;
+	cout << "(" << nom << ") -- " << "Bonjour, je suis " << getNom() << " le " << getComportement() << " et j'aime le " << getBoissonFavorite() << "." << endl;
 }
 
 void Brigand::kidnappe(Dame& dame)
@@ -222,6 +237,66 @@ bool Brigand::estEnPrison() const
 string Brigand::getNom() const
 {
 	return nom;
+}
+
+int Brigand::getPrimes()
+{
+	return recompense;
+}
+
+/*#####################class Brigand#####################*/
+
+string Barman::terminePhrase() const
+{
+	return " mon gars.\n";
+}
+
+Barman::Barman(const string nom, const string boissonFavorite, const string nomBar) :Humain(nom, boissonFavorite), nomBar(nomBar)
+{
+}
+
+string Barman::getNomBar()
+{
+	return nomBar;
+}
+
+void Barman::parle(const string texte)
+{
+	cout << texte;
+}
+
+void Barman::sePresente()
+{
+	cout << "(" << nom << ") -- Bonjour, je suis " << getNom() << " le barman du " << getNomBar() << " et j'aime le " << getBoissonFavorite()<< terminePhrase();
+}
+
+void Barman::sert(Humain& client)
+{
+	cout << "(" << nom << ") -- " << "Tiens " << client.getNom() << ", un verre de " << client.getBoissonFavorite() << terminePhrase();
+}
+
+/*#####################class Sherif#####################*/
+
+Sherif::Sherif(const string nom, const string boissonFavorite, int nbBrigandsCoffres, string qualite, int popularite) :Cowboy(nom, boissonFavorite, qualite, popularite)
+{
+}
+
+void Sherif::cofferBrigand(Brigand& brigand)
+{
+	cout << "(" << nom << ") -- " << "Au nom de la loi, je vous arrete !" << endl;
+	brigand.seFaitEmprisonner(*this);
+	nbBrigandsCoffres++;
+	incrementePopularite();
+}
+
+void Sherif::avisRecherche(Brigand& brigand)
+{
+	cout << "** OYEZ OYEZ BRAVE GENS !!! " << brigand.getRecompense() << "$ a qui arretera " << brigand.getNom() << " mort ou vif !" << endl;
+}
+
+void Sherif::sePresente()
+{
+	cout << "(" << nom << ") -- " << "Bonjour je suis Sherif " << nom << " j'aime l'/le " << boissonFavorite << " et j'ai arrete "<< nbBrigandsCoffres << " brigand(s) !" << endl;
 }
 
 
