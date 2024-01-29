@@ -50,8 +50,10 @@ class Cowboy : public Humain
 private:
 	int popularite = 0;
 	string qualite;
+	Arme* arme;
 public:
 	Cowboy(const string nom = "", const string boissonFavorite = "whisky", const string qualite = "vaillant", const int popularite = 0);
+	~Cowboy();
 	void sePresente() const;
 	string getNom() const;
 	string getQualite() const;
@@ -63,6 +65,8 @@ public:
 	void tire(const Brigand& brigand);
 	void emprisonne(Brigand& brigand);
 	void libere(Dame& dame);
+	void setArme(Arme* arme);
+	void tire(const Brigand& brigand) const;
 };
 
 /*#####################class Brigand#####################*/
@@ -116,4 +120,20 @@ public:
 	void cofferBrigand(Brigand& brigand);
 	void avisRecherche(Brigand& brigand);
 	void sePresente();
+};
+
+/*#####################class Arme#####################*/
+
+class Arme
+{
+private:
+	string nom;
+	int capacite, nbBalles, prix;
+public:
+	Arme(const string nom = "", int prix = 100, int capacite = 6, int nbBalles = 0);
+	string getNom();
+	int getPrix();
+	int getNbBalles();
+	void tire();
+	void recharge(int nbBalles);
 };

@@ -102,6 +102,10 @@ Cowboy::Cowboy(const string nom, const string boissonFavorite, const string qual
 {
 }
 
+Cowboy::~Cowboy()
+{
+}
+
 void Cowboy::sePresente() const
 {
 	cout << "(" << nom << ") -- " << "Bonjour, je suis le " << getQualite() <<" "<< getNom() << " et j'aime le " << boissonFavorite << endl;
@@ -159,6 +163,26 @@ void Cowboy::emprisonne(Brigand& brigand)
 void Cowboy::libere(Dame& dame)
 {
 	dame.seFaitLiberer(*this);
+}
+
+void Cowboy::setArme(Arme* arme)
+{
+	this->arme = arme;
+}
+
+void Cowboy::tire(const Brigand& brigand) const {
+	// ai-je une arme ? 
+	if(arme !=NULL)
+{
+// est-elle chargée ?
+if (arme->getNbBalles() != 0)
+{
+	cout << "** Le " << getQualite() << " " << getNom() << " tire sur " << brigand.
+		getNom() << endl;
+	arme->tire();
+	cout << "(" << nom << ") -- " << "Prends ça, rascal ! " << endl;
+}
+}
 }
 
 /*#####################class Brigand#####################*/
@@ -244,7 +268,7 @@ int Brigand::getPrimes()
 	return recompense;
 }
 
-/*#####################class Brigand#####################*/
+/*#####################class Barman#####################*/
 
 string Barman::terminePhrase() const
 {
@@ -299,4 +323,40 @@ void Sherif::sePresente()
 	cout << "(" << nom << ") -- " << "Bonjour je suis Sherif " << nom << " j'aime l'/le " << boissonFavorite << " et j'ai arrete "<< nbBrigandsCoffres << " brigand(s) !" << endl;
 }
 
+Arme::Arme(const string nom, int prix, int capacite, int nbBalles) : nom(nom), prix(prix), capacite(capacite), nbBalles(nbBalles)
+{
+	
+}
 
+string Arme::getNom()
+{
+	return nom;
+}
+
+int Arme::getPrix()
+{
+	return prix;
+}
+
+int Arme::getNbBalles()
+{
+	return nbBalles;
+}
+
+void Arme::tire()
+{
+	if (nbBalles > 0) {
+		nbBalles--;
+		cout << "PAN !" << endl;
+	}
+}
+
+void Arme::recharge(int _nbBalles)
+{
+	if (nbBalles+_nbBalles<capacite) {
+		nbBalles += _nbBalles;
+	}
+	else {
+		nbBalles = capacite;
+	}
+}

@@ -32,4 +32,7 @@ int main()
 	presentezVous(clint);
 	clint.avisRecherche(joe);
 	clint.cofferBrigand(joe); 
+	// test arme
+	Arme* arme = new Arme("Smith and Wesson", 100, 5, 5);
+	lucky.setArme(Arme);
 }
