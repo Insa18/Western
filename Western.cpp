@@ -31,5 +31,5 @@ int main()
 	presentezVous(robert);
 	presentezVous(clint);
 	clint.avisRecherche(joe);
-	clint.cofferBrigand(joe);
+	clint.cofferBrigand(joe); 
 }
