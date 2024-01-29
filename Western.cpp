@@ -32,6 +32,4 @@ int main()
 	presentezVous(clint);
 	clint.avisRecherche(joe);
 	clint.cofferBrigand(joe); 
-
-
 }
