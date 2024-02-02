@@ -24,7 +24,7 @@ void Humain::setBoissonFavorite(const string _boissonFavorite)
 
 void Humain::parle(const string texte)
 {
-	cout << texte;
+	cout << "(" << nom << ") -- " << texte << endl;
 }
 
 void Humain::boit()
@@ -98,12 +98,14 @@ void Dame::seFaitLiberer(Cowboy& cowboy)
 
 /*#####################class Cowboy#####################*/
 
-Cowboy::Cowboy(const string nom, const string boissonFavorite, const string qualite, const int _popularite):Humain(nom, boissonFavorite),qualite(qualite),popularite(_popularite)
+Cowboy::Cowboy(const string nom, const string boissonFavorite, const string qualite, const int _popularite):Humain(nom, boissonFavorite),qualite(qualite),popularite(_popularite),arme(NULL)
 {
 }
 
 Cowboy::~Cowboy()
 {
+	if (arme != NULL) delete
+		arme;
 }
 
 void Cowboy::sePresente() const
@@ -148,11 +150,6 @@ void Cowboy::decrementePopularite()
 	}
 }
 
-void Cowboy::tire(const Brigand& brigand)
-{
-	cout << "** Le " << qualite << " " << nom << " tire sur " << brigand.getNom() << " !" << endl;
-	cout << "(" << nom << ") -- " << "Prends ca, rascal ! "<<endl;
-}
 
 void Cowboy::emprisonne(Brigand& brigand)
 {
@@ -185,10 +182,24 @@ if (arme->getNbBalles() != 0)
 }
 }
 
+void Cowboy::AffArmeCara(Arme* arme)
+{
+	cout << "Nom : " << arme->getNom() << endl;
+	cout << "Prix : " << arme->getPrix() << endl;
+	cout << "Nombre de balles : " << arme->getNbBalles() << endl;
+}
+
 /*#####################class Brigand#####################*/
 
-Brigand::Brigand(const string nom, const string boissonFavorite, const string comportement) :Humain(nom, boissonFavorite), comportement(comportement),nbDamesEnlevees(0),recompense(0),enPrison(false)
+Brigand::Brigand(const string nom, const string boissonFavorite, const string comportement) :Humain(nom, boissonFavorite), comportement(comportement),nbDamesEnlevees(0),recompense(0),enPrison(false),arme(NULL)
 {
+}
+
+Brigand::~Brigand()
+{
+	// ai-je une arme à détruire ?
+	if (arme != NULL) delete
+		arme;
 }
 
 string Brigand::getComportement() const
@@ -267,6 +278,35 @@ int Brigand::getPrimes()
 {
 	return recompense;
 }
+
+void Brigand::setArme(Arme* arme)
+{
+	this->arme = arme;
+}
+
+void Brigand::tire(const Cowboy& heros) const {
+	// ai-je une arme ? 
+	if (arme != NULL)
+	{
+		// est-elle chargée ?
+		if (arme->getNbBalles() != 0)
+		{
+			cout << "** Le " << getComportement() << " " << getNom() << " tire sur " << heros.
+				getNom() << endl;
+			arme->tire();
+			cout << "(" << nom << ") -- " << "Prends ca ! "<< heros.getNom() << endl;
+		}
+	}
+}
+
+void Brigand::AffArmeCara(Arme* arme)
+{
+	cout << "Nom : "<< arme->getNom() << endl;
+	cout << "Prix : "<< arme->getPrix() << endl;
+	cout << "Nombre de balles : "<< arme->getNbBalles() << endl;
+}
+
+
 
 /*#####################class Barman#####################*/
 

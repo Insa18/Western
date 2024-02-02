@@ -44,7 +44,7 @@ public:
 };
 
 /*#####################class Cowboy#####################*/
-
+class Arme;
 class Cowboy : public Humain
 {
 private:
@@ -62,23 +62,25 @@ public:
 	void setQualite(const string _qualite);
 	void incrementePopularite();
 	void decrementePopularite();
-	void tire(const Brigand& brigand);
 	void emprisonne(Brigand& brigand);
 	void libere(Dame& dame);
 	void setArme(Arme* arme);
 	void tire(const Brigand& brigand) const;
+	void AffArmeCara(Arme* arme);
 };
 
 /*#####################class Brigand#####################*/
-
+class Arme;
 class Brigand : public Humain
 {
 private:
 	string comportement;
 	int nbDamesEnlevees, recompense;
 	bool enPrison;
+	Arme* arme;
 public:
 	Brigand(const string nom = "", const string boissonFavorite = "tord-boyaux", const string comportement = "mechant");
+	~Brigand();
 	string getComportement() const;
 	int getNbDamesEnlevees() const;
 	int getRecompense() const;
@@ -92,6 +94,9 @@ public:
 	bool estEnPrison() const;
 	string getNom() const;
 	int getPrimes();
+	void setArme(Arme* arme);
+	void tire(const Cowboy& heros) const;
+	void AffArmeCara(Arme* arme);
 };
 
 /*#####################class Barman#####################*/
